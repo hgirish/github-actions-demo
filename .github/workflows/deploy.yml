@@ -20,6 +20,6 @@ jobs:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - run: dotnet build --configuration Release 
       - name: Create the package
-        run: dotnet pack --configuration Release github-actions-demo
+        run: dotnet pack --configuration Release 
       - name: Publish the package to GPR
         run: dotnet nuget push github-actions-demo/bin/Release/*.nupkg
