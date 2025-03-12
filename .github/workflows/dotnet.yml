@@ -20,7 +20,10 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '9'
+        source-url: https://nuget.pkg.github.com/hgirish/index.json
         #cache: true
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         
     - name: Display dotnet version
       run: dotnet --version
@@ -32,7 +35,13 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build  --configuration Release github-actions-demo
+    - name: Create the package
+      run: dotnet pack --configuration Release github-actions-demo
+
+    - name: Publish teh package to GPR
+      run: dotnet nuget push github-actions-demo/bin/Release/*.nupkg
+      
     - name: Test
       run: dotnet test --no-build --verbosity normal --logger trx --results-directory "TestResults-9.0x"
     - name: Upload dotnet test results
