@@ -18,7 +18,7 @@ jobs:
           source-url: https://nuget.pkg.github.com/hgirish/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - run: dotnet build --configuration Release github-actions-demo
+      - run: dotnet build --configuration Release 
       - name: Create the package
         run: dotnet pack --configuration Release github-actions-demo
       - name: Publish the package to GPR
