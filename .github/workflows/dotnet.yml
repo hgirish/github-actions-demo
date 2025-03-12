@@ -35,12 +35,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build  --configuration Release github-actions-demo
-    - name: Create the package
-      run: dotnet pack --configuration Release github-actions-demo
-
-    - name: Publish teh package to GPR
-      run: dotnet nuget push github-actions-demo/bin/Release/*.nupkg
+      run: dotnet build --no-restore
       
     - name: Test
       run: dotnet test --no-build --verbosity normal --logger trx --results-directory "TestResults-9.0x"
